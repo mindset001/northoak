@@ -1,65 +1,235 @@
-import Image from "next/image";
+import Link from "next/link";
+import { ArrowRight, ClipboardList, HardHat, Landmark, Sprout, Truck } from "lucide-react";
+import HeroCanvas from "@/components/3d/HeroCanvas";
+import AmbientBlobs from "@/components/AmbientBlobs";
+import Reveal from "@/components/motion/Reveal";
+import { StaggerGroup, StaggerItem } from "@/components/motion/Stagger";
+import TiltCard from "@/components/motion/TiltCard";
+import Counter from "@/components/motion/Counter";
+import {
+  about,
+  coreServices,
+  company,
+  mission,
+  projects,
+  stats,
+  vision,
+} from "@/lib/content";
+
+const serviceIcons = [HardHat, Truck, ClipboardList, Sprout];
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <>
+      {/* HERO */}
+      <section className="relative flex min-h-screen items-center overflow-hidden bg-ink-950">
+        <div className="absolute inset-0 bg-gradient-to-br from-ink-950 via-ink-900 to-ink-850" />
+        <HeroCanvas />
+        <div className="bg-noise pointer-events-none absolute inset-0 opacity-30" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink-950 via-transparent to-ink-950/40" />
+
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-6 pt-28">
+          <div className="max-w-2xl">
+            <Reveal>
+              <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-gold-300">
+                {company.rcNumber} &middot; Est. {company.incorporated}
+              </span>
+            </Reveal>
+
+            <Reveal delay={0.1}>
+              <h1 className="font-serif-display mt-7 text-5xl font-bold leading-[1.05] text-ink-50 sm:text-6xl md:text-7xl">
+                Engineering Nigeria&rsquo;s
+                <span className="text-gradient-gold"> next chapter</span>
+              </h1>
+            </Reveal>
+
+            <Reveal delay={0.2}>
+              <p className="mt-7 max-w-xl text-lg leading-relaxed text-ink-200">
+                Northoak Global Investment Limited delivers construction, engineering,
+                transportation and procurement solutions for government and private
+                sector clients across Nigeria and abroad.
+              </p>
+            </Reveal>
+
+            <Reveal delay={0.3}>
+              <div className="mt-10 flex flex-wrap items-center gap-4">
+                <Link
+                  href="/contact"
+                  className="group inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-azure-500 to-azure-700 px-7 py-3.5 text-sm font-semibold text-white shadow-xl shadow-azure-900/50 ring-1 ring-white/10 transition-transform hover:scale-105"
+                >
+                  Start a Conversation
+                  <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
+                </Link>
+                <Link
+                  href="/services"
+                  className="inline-flex items-center gap-2 rounded-full border border-white/15 px-7 py-3.5 text-sm font-semibold text-ink-100 transition-colors hover:bg-white/5"
+                >
+                  Explore Services
+                </Link>
+              </div>
+            </Reveal>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+        <div className="absolute inset-x-0 bottom-0 z-10">
+          <div className="mx-auto max-w-7xl border-t border-white/5 px-6">
+            <div className="grid grid-cols-2 gap-6 py-8 sm:grid-cols-4">
+              {stats.map((stat) => (
+                <div key={stat.label}>
+                  <div className="font-serif-display text-2xl font-bold text-gold-300 sm:text-3xl">
+                    {stat.display ?? <Counter value={stat.value} suffix={stat.suffix} />}
+                  </div>
+                  <div className="mt-1 text-xs uppercase tracking-widest text-ink-200/70">
+                    {stat.label}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
-      </main>
-    </div>
+      </section>
+
+      {/* ABOUT TEASER */}
+      <section className="relative overflow-hidden py-28">
+        <AmbientBlobs />
+        <div className="relative mx-auto grid max-w-7xl gap-16 px-6 md:grid-cols-2">
+          <Reveal>
+            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-gold-300">
+              {about.eyebrow}
+            </span>
+            <h2 className="font-serif-display mt-4 text-3xl font-bold text-ink-50 sm:text-4xl">
+              {about.heading}
+            </h2>
+            <p className="mt-6 leading-relaxed text-ink-200">{about.paragraphs[0]}</p>
+            <Link
+              href="/about"
+              className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-azure-300 transition-colors hover:text-azure-200"
+            >
+              Read our story <ArrowRight size={16} />
+            </Link>
+          </Reveal>
+
+          <div className="grid gap-5">
+            <Reveal delay={0.1}>
+              <TiltCard className="glass-panel p-7">
+                <h3 className="font-serif-display text-xl font-semibold text-gold-300">Mission</h3>
+                <p className="mt-3 text-sm leading-relaxed text-ink-200">{mission}</p>
+              </TiltCard>
+            </Reveal>
+            <Reveal delay={0.2}>
+              <TiltCard className="glass-panel p-7">
+                <h3 className="font-serif-display text-xl font-semibold text-azure-300">Vision</h3>
+                <p className="mt-3 text-sm leading-relaxed text-ink-200">{vision}</p>
+              </TiltCard>
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
+      {/* SERVICES PREVIEW */}
+      <section className="relative border-y border-white/5 bg-ink-900/40 py-28">
+        <div className="mx-auto max-w-7xl px-6">
+          <Reveal className="mx-auto max-w-2xl text-center">
+            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-gold-300">
+              What We Do
+            </span>
+            <h2 className="font-serif-display mt-4 text-3xl font-bold text-ink-50 sm:text-4xl">
+              Core Capabilities
+            </h2>
+          </Reveal>
+
+          <StaggerGroup className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {coreServices.map((service, i) => {
+              const Icon = serviceIcons[i];
+              return (
+                <StaggerItem key={service.title}>
+                  <TiltCard className="glass-panel h-full p-7">
+                    <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-azure-500/20 to-gold-500/10 text-gold-300 ring-1 ring-white/10">
+                      <Icon size={22} />
+                    </div>
+                    <h3 className="font-serif-display mt-5 text-lg font-semibold text-ink-50">
+                      {service.title}
+                    </h3>
+                    <p className="mt-2 text-sm leading-relaxed text-ink-200">
+                      {service.description}
+                    </p>
+                  </TiltCard>
+                </StaggerItem>
+              );
+            })}
+          </StaggerGroup>
+
+          <Reveal className="mt-12 text-center" delay={0.1}>
+            <Link
+              href="/services"
+              className="inline-flex items-center gap-2 rounded-full border border-white/15 px-7 py-3.5 text-sm font-semibold text-ink-100 transition-colors hover:bg-white/5"
+            >
+              View All Services <ArrowRight size={16} />
+            </Link>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* FEATURED PROJECT */}
+      <section className="relative overflow-hidden py-28">
+        <AmbientBlobs />
+        <div className="relative mx-auto max-w-7xl px-6">
+          <Reveal className="mx-auto max-w-2xl text-center">
+            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-gold-300">
+              Featured Delivery
+            </span>
+            <h2 className="font-serif-display mt-4 text-3xl font-bold text-ink-50 sm:text-4xl">
+              Trusted with Critical Infrastructure
+            </h2>
+          </Reveal>
+
+          <Reveal delay={0.15} className="mt-14">
+            <TiltCard className="glass-panel mx-auto max-w-3xl p-10">
+              <div className="flex items-center gap-3 text-azure-300">
+                <Landmark size={22} />
+                <span className="text-sm font-semibold uppercase tracking-widest">
+                  {projects[0].client}
+                </span>
+              </div>
+              <h3 className="font-serif-display mt-5 text-2xl font-bold text-ink-50 sm:text-3xl">
+                {projects[0].title}
+              </h3>
+              <p className="mt-4 text-sm uppercase tracking-widest text-gold-300">
+                {projects[0].category}
+              </p>
+              <Link
+                href="/projects"
+                className="mt-7 inline-flex items-center gap-2 text-sm font-semibold text-azure-300 transition-colors hover:text-azure-200"
+              >
+                See more projects <ArrowRight size={16} />
+              </Link>
+            </TiltCard>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="relative overflow-hidden border-t border-white/5 py-28">
+        <div className="absolute inset-0 bg-gradient-to-br from-azure-700/30 via-ink-950 to-ink-950" />
+        <div className="relative mx-auto max-w-3xl px-6 text-center">
+          <Reveal>
+            <h2 className="font-serif-display text-3xl font-bold text-ink-50 sm:text-4xl">
+              Let&rsquo;s build something
+              <span className="text-gradient-azure"> lasting</span>, together.
+            </h2>
+            <p className="mx-auto mt-5 max-w-xl text-ink-200">
+              Reach out to Northoak Global Investment Limited for your next
+              engineering, construction or procurement project.
+            </p>
+            <Link
+              href="/contact"
+              className="mt-9 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-gold-400 to-gold-600 px-8 py-4 text-sm font-bold text-ink-950 shadow-xl shadow-gold-900/30 transition-transform hover:scale-105"
+            >
+              Contact Northoak <ArrowRight size={16} />
+            </Link>
+          </Reveal>
+        </div>
+      </section>
+    </>
   );
 }
