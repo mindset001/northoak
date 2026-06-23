@@ -22,13 +22,13 @@ export default function Home() {
   return (
     <>
       {/* HERO */}
-      <section className="relative flex min-h-screen items-center overflow-hidden bg-ink-950">
+      <section className="relative flex min-h-screen flex-col overflow-hidden bg-ink-950">
         <div className="absolute inset-0 bg-gradient-to-br from-ink-950 via-ink-900 to-ink-850" />
         <HeroCanvas />
         <div className="bg-noise pointer-events-none absolute inset-0 opacity-30" />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink-950 via-transparent to-ink-950/40" />
 
-        <div className="relative z-10 mx-auto w-full max-w-7xl px-6 pt-28">
+        <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-1 items-center px-6 pb-12 pt-28">
           <div className="max-w-2xl">
             <Reveal>
               <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-gold-300">
@@ -71,7 +71,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="absolute inset-x-0 bottom-0 z-10">
+        <div className="relative z-10">
           <div className="mx-auto max-w-7xl border-t border-white/5 px-6">
             <div className="grid grid-cols-2 gap-6 py-8 sm:grid-cols-4">
               {stats.map((stat) => (

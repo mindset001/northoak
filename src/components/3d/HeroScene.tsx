@@ -2,83 +2,62 @@
 
 import { useRef } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Float, MeshDistortMaterial, Sparkles, Environment } from "@react-three/drei";
+import { Edges, Float, Grid, RoundedBox, Sparkles } from "@react-three/drei";
 import * as THREE from "three";
 
-function Core() {
-  const group = useRef<THREE.Group>(null);
-  const inner = useRef<THREE.Mesh>(null);
+type Building = {
+  x: number;
+  z: number;
+  w: number;
+  d: number;
+  h: number;
+  color: string;
+  edge: string;
+};
 
-  useFrame((state, delta) => {
+const buildings: Building[] = [
+  { x: -3.7, z: -0.4, w: 0.85, d: 0.85, h: 1.7, color: "#0d1530", edge: "#5a8bff" },
+  { x: -2.7, z: 0.6, w: 0.7, d: 0.7, h: 2.5, color: "#14213f", edge: "#8fb3ff" },
+  { x: -1.6, z: -1.0, w: 0.95, d: 0.95, h: 3.6, color: "#1c3c97", edge: "#ecc05f" },
+  { x: -0.45, z: 0.5, w: 0.65, d: 0.65, h: 2.0, color: "#0d1530", edge: "#5a8bff" },
+  { x: 0.55, z: -0.8, w: 0.85, d: 0.85, h: 2.9, color: "#244fc2", edge: "#f6dd9c" },
+  { x: 1.6, z: 0.7, w: 0.7, d: 0.7, h: 1.8, color: "#14213f", edge: "#8fb3ff" },
+  { x: 2.5, z: -0.2, w: 0.8, d: 0.8, h: 2.6, color: "#1c3c97", edge: "#5a8bff" },
+  { x: 3.5, z: 0.8, w: 0.6, d: 0.6, h: 1.35, color: "#0d1530", edge: "#5a8bff" },
+  { x: -2.1, z: -2.3, w: 0.6, d: 0.6, h: 1.15, color: "#070c18", edge: "#28407e" },
+  { x: 0.7, z: -2.5, w: 0.55, d: 0.55, h: 0.95, color: "#070c18", edge: "#28407e" },
+  { x: 2.7, z: -2.1, w: 0.5, d: 0.5, h: 0.85, color: "#070c18", edge: "#28407e" },
+];
+
+function Skyline() {
+  const group = useRef<THREE.Group>(null);
+
+  useFrame((_, delta) => {
     if (group.current) {
-      group.current.rotation.y += delta * 0.12;
-      group.current.rotation.x = Math.sin(state.clock.elapsedTime * 0.15) * 0.15;
-    }
-    if (inner.current) {
-      inner.current.rotation.y -= delta * 0.3;
-      inner.current.rotation.z += delta * 0.18;
+      group.current.rotation.y += delta * 0.07;
     }
   });
 
   return (
     <group ref={group}>
-      <mesh>
-        <icosahedronGeometry args={[1.6, 1]} />
-        <MeshDistortMaterial
-          color="#244fc2"
-          attach="material"
-          distort={0.35}
-          speed={1.6}
-          roughness={0.15}
-          metalness={0.85}
-          emissive="#1c3c97"
-          emissiveIntensity={0.25}
-        />
-      </mesh>
-      <mesh ref={inner} scale={0.62}>
-        <icosahedronGeometry args={[1.6, 0]} />
-        <meshStandardMaterial
-          color="#ecc05f"
-          wireframe
-          roughness={0.4}
-          metalness={0.6}
-          emissive="#d6a33a"
-          emissiveIntensity={0.4}
-        />
-      </mesh>
+      {buildings.map((b, i) => (
+        <group key={i} position={[b.x, b.h / 2, b.z]}>
+          <RoundedBox args={[b.w, b.h, b.d]} radius={0.04} smoothness={4} castShadow receiveShadow>
+            <meshStandardMaterial color={b.color} roughness={0.45} metalness={0.25} />
+            <Edges color={b.edge} threshold={15} />
+          </RoundedBox>
+        </group>
+      ))}
     </group>
-  );
-}
-
-function OrbitingRings() {
-  const ring1 = useRef<THREE.Mesh>(null);
-  const ring2 = useRef<THREE.Mesh>(null);
-
-  useFrame((_, delta) => {
-    if (ring1.current) ring1.current.rotation.z += delta * 0.18;
-    if (ring2.current) ring2.current.rotation.x += delta * 0.12;
-  });
-
-  return (
-    <>
-      <mesh ref={ring1} rotation={[Math.PI / 2.4, 0, 0]}>
-        <torusGeometry args={[2.7, 0.012, 16, 120]} />
-        <meshStandardMaterial color="#8fb3ff" emissive="#5a8bff" emissiveIntensity={0.6} />
-      </mesh>
-      <mesh ref={ring2} rotation={[0, Math.PI / 3, Math.PI / 6]}>
-        <torusGeometry args={[3.3, 0.008, 16, 120]} />
-        <meshStandardMaterial color="#f6dd9c" emissive="#ecc05f" emissiveIntensity={0.5} />
-      </mesh>
-    </>
   );
 }
 
 function Rig() {
   useFrame((state) => {
     const { pointer, camera } = state;
-    camera.position.x += (pointer.x * 0.6 - camera.position.x) * 0.04;
-    camera.position.y += (pointer.y * 0.4 - camera.position.y) * 0.04;
-    camera.lookAt(0, 0, 0);
+    camera.position.x += (pointer.x * 1.1 - camera.position.x) * 0.04;
+    camera.position.y += (2.4 - pointer.y * 0.5 - camera.position.y) * 0.04;
+    camera.lookAt(0, 1.4, 0);
   });
   return null;
 }
@@ -86,19 +65,48 @@ function Rig() {
 export default function HeroScene() {
   return (
     <Canvas
-      camera={{ position: [0, 0, 7], fov: 42 }}
+      shadows
+      camera={{ position: [0, 2.4, 9.5], fov: 38 }}
       dpr={[1, 1.8]}
       gl={{ antialias: true, alpha: true }}
     >
-      <ambientLight intensity={0.5} />
-      <pointLight position={[5, 4, 5]} intensity={2.2} color="#5a8bff" />
-      <pointLight position={[-5, -3, -2]} intensity={1.4} color="#ecc05f" />
-      <Float speed={1.4} rotationIntensity={0.3} floatIntensity={0.8}>
-        <Core />
+      <ambientLight intensity={0.7} />
+      <hemisphereLight args={["#8fb3ff", "#03060d", 0.5]} />
+      <directionalLight
+        position={[6, 8, 4]}
+        intensity={2.2}
+        color="#eef3ff"
+        castShadow
+        shadow-mapSize={[1024, 1024]}
+        shadow-bias={-0.0005}
+      />
+      <pointLight position={[-6, 3, -3]} intensity={2.4} color="#ecc05f" />
+      <pointLight position={[4, 2, 5]} intensity={1.4} color="#5a8bff" />
+
+      <Float speed={1.1} rotationIntensity={0} floatIntensity={0.4}>
+        <Skyline />
       </Float>
-      <OrbitingRings />
-      <Sparkles count={70} scale={7} size={2.2} speed={0.3} color="#c4cee6" opacity={0.6} />
-      <Environment preset="city" />
+
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position-y={-0.01} receiveShadow>
+        <planeGeometry args={[40, 40]} />
+        <shadowMaterial opacity={0.45} />
+      </mesh>
+
+      <Grid
+        position={[0, -0.005, 0]}
+        args={[40, 40]}
+        cellSize={0.5}
+        cellThickness={0.5}
+        cellColor="#1b2c5c"
+        sectionSize={2.5}
+        sectionThickness={1}
+        sectionColor="#5a8bff"
+        fadeDistance={16}
+        fadeStrength={1.5}
+        infiniteGrid
+      />
+
+      <Sparkles count={50} scale={9} size={1.8} speed={0.25} color="#c4cee6" opacity={0.45} />
       <Rig />
     </Canvas>
   );
