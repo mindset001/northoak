@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, ClipboardList, HardHat, Landmark, Sprout, Truck } from "lucide-react";
 import HeroCanvas from "@/components/3d/HeroCanvas";
@@ -31,6 +32,29 @@ export default function Home() {
         <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-1 items-center px-6 pb-12 pt-28">
           <div className="max-w-2xl">
             <Reveal>
+              <div className="mb-6 flex items-center gap-4">
+                <div className="overflow-hidden rounded-xl bg-white p-1 ring-2 ring-gold-400/40 shadow-lg shadow-gold-500/20">
+                  <Image
+                    src="/logo.jpeg"
+                    alt="Northoak Global Investment Limited"
+                    width={56}
+                    height={56}
+                    className="block"
+                    priority
+                  />
+                </div>
+                <div className="flex flex-col">
+                  <span className="font-serif-display text-base font-bold leading-tight text-ink-50">
+                    Northoak <span className="text-gold-400">Global</span>
+                  </span>
+                  <span className="text-[11px] uppercase tracking-[0.18em] text-ink-200/60">
+                    Investment Limited
+                  </span>
+                </div>
+              </div>
+            </Reveal>
+
+            <Reveal delay={0.05}>
               <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-gold-300">
                 {company.rcNumber} &middot; Est. {company.incorporated}
               </span>

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Mail, MapPin } from "lucide-react";
+import { Mail, MapPin, Phone } from "lucide-react";
 import PageHero from "@/components/PageHero";
 import AmbientBlobs from "@/components/AmbientBlobs";
 import Reveal from "@/components/motion/Reveal";
@@ -37,6 +37,24 @@ export default function ContactPage() {
                   <div>
                     <h3 className="font-semibold text-ink-50">Head Office</h3>
                     <p className="mt-1 text-sm leading-relaxed text-ink-200">{company.address}</p>
+                  </div>
+                </div>
+              </TiltCard>
+
+              <TiltCard className="glass-panel p-8">
+                <div className="flex items-start gap-4">
+                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-azure-500/15 text-azure-300 ring-1 ring-white/10">
+                    <Phone size={20} />
+                  </span>
+                  <div>
+                    <h3 className="font-semibold text-ink-50">Phone</h3>
+                    {company.phones.map((phone) => (
+                      <p key={phone} className="mt-1 text-sm">
+                        <a href={`tel:${phone.replace(/\s/g, "")}`} className="text-ink-200 transition-colors hover:text-azure-300">
+                          {phone}
+                        </a>
+                      </p>
+                    ))}
                   </div>
                 </div>
               </TiltCard>

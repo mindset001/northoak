@@ -4,22 +4,24 @@
   --font-sans: var(--font-sans);
   --font-serif: var(--font-serif);
 
-  --color-ink-950: #03060d;
-  --color-ink-900: #060a16;
-  --color-ink-850: #0a1020;
-  --color-ink-800: #0d1530;
-  --color-ink-700: #131e42;
-  --color-ink-600: #1b2c5c;
-  --color-ink-500: #28407e;
-  --color-ink-200: #c4cee6;
-  --color-ink-100: #e7eaf5;
-  --color-ink-50: #f5f7fc;
+  /* Purple-violet palette derived from the Northoak logo (#7A4DAA) */
+  --color-ink-950: #0e0a1c;
+  --color-ink-900: #130e26;
+  --color-ink-850: #181330;
+  --color-ink-800: #1f183e;
+  --color-ink-700: #2a2054;
+  --color-ink-600: #352868;
+  --color-ink-500: #43347e;
+  --color-ink-200: #c2bbda;
+  --color-ink-100: #e6e2f4;
+  --color-ink-50:  #f5f3fb;
 
-  --color-azure-300: #8fb3ff;
-  --color-azure-400: #5a8bff;
-  --color-azure-500: #3568ef;
-  --color-azure-600: #244fc2;
-  --color-azure-700: #1c3c97;
+  /* "azure" tokens now carry the logo's violet/plum hue */
+  --color-azure-300: #b48fde;
+  --color-azure-400: #9068cc;
+  --color-azure-500: #7a4daa;
+  --color-azure-600: #5e3490;
+  --color-azure-700: #3e1e6e;
 
   --color-gold-300: #f6dd9c;
   --color-gold-400: #ecc05f;
@@ -101,8 +103,8 @@ body {
 }
 
 .glass-panel {
-  background: linear-gradient(160deg, rgba(231, 234, 245, 0.06), rgba(231, 234, 245, 0.015));
-  border: 1px solid rgba(231, 234, 245, 0.08);
+  background: linear-gradient(160deg, rgba(180, 143, 222, 0.07), rgba(122, 77, 170, 0.03));
+  border: 1px solid rgba(180, 143, 222, 0.1);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
 }

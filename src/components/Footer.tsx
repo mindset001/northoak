@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Mail, MapPin } from "lucide-react";
+import { Mail, MapPin, Phone } from "lucide-react";
 import Logomark from "./Logomark";
 import { company } from "@/lib/content";
 
@@ -18,11 +18,16 @@ export default function Footer() {
       <div className="relative mx-auto max-w-7xl px-6 py-14">
         <div className="grid gap-12 md:grid-cols-[1.4fr_1fr_1fr]">
           <div>
-            <Link href="/" className="flex items-center gap-3">
-              <Logomark />
-              <span className="font-serif-display text-lg font-semibold text-ink-50">
-                Northoak Global Investment Limited
-              </span>
+            <Link href="/" className="flex items-center gap-4">
+              <Logomark size={52} />
+              <div className="flex flex-col">
+                <span className="font-serif-display text-lg font-bold leading-tight text-ink-50">
+                  Northoak <span className="text-gold-400">Global</span>
+                </span>
+                <span className="text-xs uppercase tracking-widest text-ink-200/60">
+                  Investment Limited
+                </span>
+              </div>
             </Link>
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-ink-200">
               Engineering, construction, transportation, procurement and agricultural
@@ -57,6 +62,14 @@ export default function Footer() {
                 <MapPin size={16} className="mt-0.5 shrink-0 text-azure-400" />
                 <span>{company.address}</span>
               </li>
+              {company.phones.map((phone) => (
+                <li key={phone} className="flex items-center gap-2">
+                  <Phone size={16} className="shrink-0 text-azure-400" />
+                  <a href={`tel:${phone.replace(/\s/g, "")}`} className="transition-colors hover:text-white">
+                    {phone}
+                  </a>
+                </li>
+              ))}
               {company.emails.map((email) => (
                 <li key={email} className="flex items-center gap-2">
                   <Mail size={16} className="shrink-0 text-azure-400" />

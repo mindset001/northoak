@@ -39,10 +39,15 @@ export default function Navbar() {
     >
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-6">
         <Link href="/" className="flex items-center gap-3">
-          <Logomark />
-          <span className="hidden font-serif-display text-base font-semibold tracking-wide text-ink-50 sm:inline">
-            Northoak <span className="text-gold-400">Global</span>
-          </span>
+          <Logomark size={38} />
+          <div className="hidden flex-col sm:flex">
+            <span className="font-serif-display text-sm font-bold leading-tight tracking-wide text-ink-50">
+              Northoak <span className="text-gold-400">Global</span>
+            </span>
+            <span className="text-[10px] uppercase tracking-[0.18em] text-ink-200/60">
+              Investment Limited
+            </span>
+          </div>
         </Link>
 
         <ul className="hidden items-center gap-9 md:flex">

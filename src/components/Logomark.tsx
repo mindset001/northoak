@@ -1,9 +1,19 @@
-export default function Logomark({ className }: { className?: string }) {
+import Image from "next/image";
+
+export default function Logomark({ size = 36, className }: { size?: number; className?: string }) {
   return (
     <span
-      className={`inline-flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-azure-500 via-azure-600 to-ink-800 ring-1 ring-white/10 ${className ?? ""}`}
+      className={`inline-flex shrink-0 items-center justify-center overflow-hidden rounded-lg bg-white p-0.5 ring-1 ring-white/20 ${className ?? ""}`}
+      style={{ width: size, height: size }}
     >
-      <span className="font-serif-display text-lg font-bold text-gold-300">N</span>
+      <Image
+        src="/logo.jpeg"
+        alt="Northoak Global Investment Limited"
+        width={size}
+        height={size}
+        className="h-full w-full object-contain"
+        priority
+      />
     </span>
   );
 }

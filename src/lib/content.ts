@@ -8,6 +8,7 @@ export const company = {
   incorporated: "5th September, 2007",
   incorporatedYear: 2007,
   address: "No. 8, Kinshasa Street, Wuse Zone 6, Abuja, Nigeria",
+  phones: ["+234 803 456 7890", "+234 906 123 4567"],
   emails: ["info@northoakglobalinvestment.com", "northoakgil@gmail.com"],
   website: "www.northoakglobalinvestment.com",
 };
